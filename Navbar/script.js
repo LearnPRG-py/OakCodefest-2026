@@ -20,12 +20,3 @@ hamburgerBtn.addEventListener('click', () => {
 });
 
 const pageTitle = document.getElementById('pageTitle');
-
-const pageNameMap = {
-  'index.html': 'Home',
-  'about_us': 'About Us',
-  'themes': 'Themes',
-  'resources': 'Resources',
-  'register': 'Register',
-  'event-details': 'Event Details'
-};
