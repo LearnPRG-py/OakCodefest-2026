@@ -1,11 +1,9 @@
-const headerUrl = new URL('./index.html', import.meta.url); 
+const headerUrl = new URL('./index.html', import.meta.url);
 
 fetch(headerUrl)
   .then(res => res.text())
   .then(html => {
     document.getElementById("navbar").innerHTML = html;
-
-    // Now the DOM has the header
     const navbar = document.getElementById('navbar');
     const sentinel = document.getElementById('sentinel');
 
