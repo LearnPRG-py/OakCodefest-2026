@@ -68,7 +68,7 @@ export default function Page() {
         noiseIntensity={0.01}
         scanDirection="backward"
         scanOnClick={true}
-        scanDelay={0}
+        scanDelay={2}
         scanDuration={2}
       />
       <div
