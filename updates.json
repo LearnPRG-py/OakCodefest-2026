@@ -3,27 +3,33 @@
     { 
       "title": "OAKMUN 2025 is Complete!",
       "text": "With over 340 delegates from around the world in 10 dynamic committees, Oakridge's first international conference is complete!",
-      "date": "September 20th, 2025"
+      "date": "September 20th, 2025",
+      "image": "/images/pic1.jpg"
     },
     {
       "title": "Codefest 2026 Launching Soon",
       "text": "Get ready for new challenges, more innovation, and a bigger competition than ever.",
-      "date": "January 10th, 2026"
+      "date": "January 10th, 2026",
+      "image": "/images/pic1.jpg"
+
     },
     {
       "title": "Robotics Expo Success",
       "text": "Students showcased cutting-edge bots and automation projects at the annual robotics expo.",
-      "date": "August 2nd, 2025"
+      "date": "August 2nd, 2025",
+      "image": "/images/pic1.jpg"
     },
     {
       "title": "Tech Council Initiatives",
       "text": "The student tech council announced new open-source initiatives for the 2026 school year.",
-      "date": "October 11th, 2025"
+      "date": "October 11th, 2025",
+      "image": "/images/pic1.jpg"
     },
     {
       "title": "Workshops Expanded",
       "text": "We've added five new hands-on engineering and AI workshops based on student demand.",
-      "date": "November 5th, 2025"
+      "date": "November 5th, 2025",
+      "image": "/images/pic1.jpg"
     }
   ]
 }

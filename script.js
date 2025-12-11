@@ -1,13 +1,14 @@
-fetch('updates.json')
-.then(res => res.json())
-.then(data => {
+fetch('updates.json').then(res => res.json()).then(data => {
     const container = document.getElementById('updatesScroll');
 
     container.innerHTML = data.updates.map(u => `
         <div class="update-card">
-        <h3>${u.title}</h3>
-        <p>${u.text}</p>
-        <span class="date">${u.date}</span>
+            <img src="${u.image}" alt="${u.title}" class="update-img" /
+            <div>
+                <h3 class="update-content">${u.title}</h3>
+                <p class="update-content">${u.text}</p>
+                <span class="date">${u.date}</span>
+            </div>
         </div>
     `).join('');
 
