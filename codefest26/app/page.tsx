@@ -150,7 +150,29 @@ export default function Page() {
         />
 
         <ParticleField count={25} particleColor={PARTICLE_COLOR} />
+        <style>{`
+        @media (max-width: 900px) {
+          h1 {
+            bottom: 5% !important;
+            text-align: center;
+            width: 90% !important;
+          }
+        }
 
+        @media (max-width: 400px) {
+          h1 {
+            bottom: 2% !important;
+            text-align: center;
+            max-width: 90% !important;
+          }
+          .ascii-text-container {
+            max-width: 100% !important;
+          }
+          .pf-wrapper {
+            display: none;
+          }
+        }
+      `}</style>`
         <div
           style={{
             position: "absolute",
