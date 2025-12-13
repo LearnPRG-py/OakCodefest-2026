@@ -154,16 +154,15 @@ export default function Page() {
         <style>{`
         @media (max-width: 900px) {
           h1 {
-            bottom: 5% !important;
-            text-align: center;
+            bottom: 15% !important;
             width: 90% !important;
           }
         }
 
         @media (max-width: 400px) {
           h1 {
-            bottom: 2% !important;
-            text-align: center;
+            bottom: 8% !important;
+            font-size: 1.5rem !important;
             max-width: 90% !important;
           }
           .ascii-text-container {
@@ -204,6 +203,7 @@ export default function Page() {
       transform: "translateX(-50%)",
       margin: 0,
       padding: "0 20px",
+      textAlign: "center",
 
       fontFamily: "Consolas, monospace",
       fontWeight: 700,
