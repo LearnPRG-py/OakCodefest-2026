@@ -370,8 +370,8 @@ html, body {
   -webkit-text-stroke: 1.5px rgba(0,0,0,0.25);
   -webkit-text-fill-color: var(--sec-accent-color);
   text-shadow:
-    0 0 2px rgba(255,255,255,0.04),
-    0 0 10px rgba(126,97,255,0.5);
+    0 0 2px var(--sec-bg),
+    0 0 10px var(--accent-color);
   display: block;
   padding: 6px 0;
   margin-bottom: 10px;

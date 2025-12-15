@@ -275,7 +275,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     section.innerHTML = `
       <div class="live-container">
-        <h1> OAKRIDGE CODEFEST 2026 IS LIVE!</h1>
+        <h1>OAKRIDGE CODEFEST 2026 IS LIVE!</h1>
         <p>Let The Hacking Begin!</p>
       </div>
     `;
