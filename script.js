@@ -1,3 +1,4 @@
+// UPDATES
 let TRACK;
 const LEFT_BTN_SELECTOR = '.nav-btn.left';
 const RIGHT_BTN_SELECTOR = '.nav-btn.right';
@@ -31,6 +32,45 @@ async function init() {
 
   requestAnimationFrame(() => updatePosition(0));
   attachListeners();
+
+  // Review section
+  const scrollSpeed = 1;
+  let scrollInterval;
+
+  function setupCarousels(containerSelector, direction = 1) {
+    const containers = document.querySelectorAll(containerSelector);
+    return Array.from(containers).map(container => {
+      const carousel = container.querySelector('.carousel');
+      carousel.innerHTML += carousel.innerHTML;
+      const halfWidth = carousel.scrollWidth / 2;
+      if (direction === -1) {
+        container.scrollLeft = halfWidth;
+      }
+      return { container, halfWidth, direction };
+    });
+  }
+
+  function startAutoScroll() {
+    const rightCarousels = setupCarousels('.lazy-scrolling-container.right', 1);
+    const leftCarousels  = setupCarousels('.lazy-scrolling-container.left', -1);
+
+    scrollInterval = setInterval(() => {
+      rightCarousels.forEach(c => {
+        c.container.scrollLeft += scrollSpeed;
+        if (c.container.scrollLeft >= c.halfWidth) {
+          c.container.scrollLeft = 0;
+        }
+      });
+      leftCarousels.forEach(c => {
+        c.container.scrollLeft -= scrollSpeed;
+        if (c.container.scrollLeft <= 0) {
+          c.container.scrollLeft = c.halfWidth;
+        }
+      });
+    }, 16);
+  }
+
+  startAutoScroll();
 }
 
 function renderCards() {
@@ -99,17 +139,19 @@ function cardDimensions() {
   return { w, gap };
 }
 
-function updatePosition(animate = 1) {
+function updatePosition(animate = true) {
   const { w, gap } = cardDimensions();
   const step = w + gap;
 
-  const mask = TRACK.parentElement;
+  const mask = TRACK.closest('.updates-mask');
   if (!mask) return;
 
-  const maskW = mask.getBoundingClientRect().width;
-  const viewportCenter = Math.round(maskW / 2);
-  const baseTranslate = viewportCenter - (w / 2);
-  const translateX = Math.round(baseTranslate - (activeIndex * step));
+  const maskWidth = mask.getBoundingClientRect().width;
+  const centerX = maskWidth / 2;
+
+  const translateX = Math.round(
+    centerX - w / 2 - activeIndex * step
+  );
 
   if (!animate) {
     TRACK.style.transition = 'none';
@@ -127,24 +169,27 @@ function setCenterClass() {
   const cards = Array.from(TRACK.querySelectorAll('.update-card'));
   cards.forEach(c => c.classList.remove('center'));
 
-  const centerCard = TRACK.querySelector(`.update-card[data-index="${activeIndex}"]`);
+  const centerCard = TRACK.querySelector(
+    `.update-card[data-index="${activeIndex}"]`
+  );
+
   if (centerCard) centerCard.classList.add('center');
 }
 
 function attachListeners() {
   LEFT_BTN.addEventListener('click', () => {
-  if (activeIndex > 0) {
-    activeIndex = activeIndex - 1;
-    updatePosition(true);
-  }
-});
+    if (activeIndex > 0) {
+      activeIndex -= 1;
+      updatePosition(true);
+    }
+  });
 
-RIGHT_BTN.addEventListener('click', () => {
-  if (activeIndex < updates.length - 1) {
-    activeIndex = activeIndex + 1;
-    updatePosition(true);
-  }
-});
+  RIGHT_BTN.addEventListener('click', () => {
+    if (activeIndex < updates.length - 1) {
+      activeIndex += 1;
+      updatePosition(true);
+    }
+  });
 
   setupDrag();
 
@@ -180,22 +225,23 @@ function setupDrag() {
   });
 
   mask.addEventListener('pointerup', e => {
-  if (!dragging) return;
-  dragging = false;
+    if (!dragging) return;
+    dragging = false;
 
-  TRACK.style.transition = '';
+    TRACK.style.transition = '';
 
-  const dx = e.clientX - startX;
+    const dx = e.clientX - startX;
+    const { w, gap } = cardDimensions();
+    const step = w + gap;
 
-  if (dx > 60 && activeIndex > 0) {
-    activeIndex = activeIndex - 1;
-  } 
-  else if (dx < -60 && activeIndex < updates.length - 1) {
-    activeIndex = activeIndex + 1;
-  }
+    const deltaIndex = Math.round(-dx / step);
+    activeIndex = Math.max(
+      0,
+      Math.min(updates.length - 1, activeIndex + deltaIndex)
+    );
 
-  updatePosition(true);
-});
+    updatePosition(true);
+  });
 
   mask.addEventListener('pointercancel', () => {
     dragging = false;
@@ -210,3 +256,70 @@ if (document.readyState === 'loading') {
 } else {
   init();
 }
+
+// COUNTDOWN
+document.addEventListener("DOMContentLoaded", () => {
+
+  const targetDate = new Date("2026-02-07T10:00:00").getTime();
+  let lastValues = {};
+
+  function UpdateCountdown() {
+    const now = Date.now();
+    let diff = targetDate - now;
+
+    if (diff <= 0) {
+      showLiveState();
+      return;
+    }
+
+    const totalSeconds = Math.floor(diff / 1000);
+    const seconds = totalSeconds % 60;
+    const minutes = Math.floor(totalSeconds / 60) % 60;
+    const hours = Math.floor(totalSeconds / 3600) % 24;
+    const days = Math.floor(totalSeconds / 86400);
+
+    SetValue("days", days);
+    SetValue("hours", hours);
+    SetValue("minutes", minutes);
+    SetValue("seconds", seconds);
+
+    const countdownEl = document.getElementById("countdown");
+
+  if (diff <= 86400000) {
+    countdownEl?.classList.add("final-glow");
+  } else {
+    countdownEl?.classList.remove("final-glow");
+  }
+
+  }
+
+  function SetValue(id, value) {
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    const formatted = String(value).padStart(2, "0");
+
+    if (lastValues[id] !== formatted) {
+      el.textContent = formatted;
+      el.classList.remove("flip");
+      void el.offsetWidth;
+      el.classList.add("flip");
+      lastValues[id] = formatted;
+    }
+  }
+
+  function showLiveState() {
+    const section = document.getElementById("countdown-section");
+    if (!section) return;
+
+    section.innerHTML = `
+      <div class="live-container">
+        <h1>OAKRIDGE CODEFEST 2026 IS LIVE!</h1>
+        <p>Let The Hacking Begin!</p>
+      </div>
+    `;
+  }
+
+  UpdateCountdown();
+  setInterval(UpdateCountdown, 1000);
+});
