@@ -8,8 +8,8 @@ import DecryptedText from "../components/DecryptedText.jsx"
 // --- COLORS ---
 const LINES_COLOR = "hsla(200, 55%, 38%, 1.00)";
 const SCAN_COLOR = "rgb(103, 201, 213)";
-const TEXT_COLOR = "rgb(255, 242, 52)";
-const PARTICLE_COLOR = "rgb(247, 54, 77)";
+const PARTICLE_COLOR = "rgb(255, 242, 52)";
+const TEXT_COLOR = "rgb(247, 54, 77)";
 
 // --- ParticleField Behaviour  ---
 const ParticleField = ({ count = 25, particleColor = PARTICLE_COLOR }) => {
