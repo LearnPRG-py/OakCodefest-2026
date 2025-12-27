@@ -458,3 +458,7 @@ section {
     word-wrap: break-word; /* legacy */
     overflow-wrap: break-word; /* modern */
   }
+
+.faqs-section {
+    padding: 80px 40px;
+}
