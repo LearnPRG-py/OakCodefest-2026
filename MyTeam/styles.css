@@ -59,7 +59,6 @@ body {
 
 .container label {
     color: var(--text-color);
-    text-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
     font-size: 14px;
     font-weight: 500;
     margin-left: 4px;
@@ -89,10 +88,11 @@ body {
 .container button {
     margin-top: 10px;
     padding: 14px 20px;
-    border: none;
+    border: 3px solid transparent;
     border-radius: 10px;
-    background: var(--sec-accent-color);
-    color: var(--text-color);
+    background: var(--sec-bg-color);
+    border-color: var(--sec-accent-color);
+    color: var(--sec-accent-color);
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
@@ -101,9 +101,10 @@ body {
 }
 
 .container button:hover {
-    background: var(--accent-color);
+    border-color: var(--accent-color);
     transform: translateY(-1px);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    color: var(--accent-color);
 }
 
 .container button:active {
