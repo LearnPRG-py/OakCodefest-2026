@@ -1,0 +1,188 @@
+[
+  {
+    "id": 1,
+    "title": "Game Development (Junior)",
+    "subtitle": "Build interactive games with creative mechanics and engaging gameplay",
+    "theme": "Game Development (Juniors Only)",
+    "themeText": "This theme focuses on designing and building interactive digital games that emphasize creativity, logic, and user experience. Projects may include gameplay mechanics, scoring systems, storytelling, and simple physics or AI, while prioritizing clean design and playability.",
+    "backgroundImage": "../images/c1.jpg",
+    "first": true,
+    "projects": [
+      {
+        "name": "A singleplayer, level-based FPS.",
+        "description": "A singleplayer, level-based FPS. The player must defend the city from waves of enemies, while also completing objectives to progress through the levels.",
+        "image": "../images/fps.jpg"
+      },
+      {
+        "name": "2D Platformer Adventure",
+        "description": "A side-scrolling platformer where players navigate through themed worlds, collect power-ups, and solve environmental puzzles to reach the end goal.",
+        "image": "../images/platformer.jpg"
+      },
+      {
+        "name": "Educational Quiz Game",
+        "description": "An interactive trivia game with multiple categories, scoring system, and difficulty levels designed to make learning fun and engaging.",
+        "image": "../images/quiz-game.png"
+      },
+      {
+        "name": "Puzzle Strategy Game",
+        "description": "A logic-based puzzle game where players must arrange elements strategically to clear levels, featuring progressive difficulty and hint systems.",
+        "image": "../images/puzzle.jpg"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "HealthTech & Digital Wellbeing",
+    "subtitle": "Tech that promotes physical health, mental wellness, and balanced digital habits",
+    "theme": "HealthTech & Digital Wellbeing",
+    "themeText": "This theme encompasses technology that supports physical health, mental wellbeing, and healthy digital habits. Projects can address prevention, monitoring, awareness, or lifestyle improvement through data-driven or user-centered solutions.",
+    "backgroundImage": "../images/c2.png",
+    "first": false,
+    "projects": [
+      {
+        "name": "Mental Health Check-in App",
+        "description": "A mobile app that helps users track their mood, emotions, and mental health patterns with daily prompts, insights, and resources for support.",
+        "image": "../images/mental-health.jpg"
+      },
+      {
+        "name": "Fitness Tracker Dashboard",
+        "description": "A web-based dashboard that visualizes exercise routines, calorie intake, and health metrics with goal-setting and progress tracking features.",
+        "image": "../images/fitness-tracker.png"
+      },
+      {
+        "name": "Screen Time Monitor",
+        "description": "An application that tracks device usage, sends break reminders, and encourages healthy digital habits through data visualization and notifications.",
+        "image": "../images/screen-time.jpg"
+      },
+      {
+        "name": "Medication Reminder System",
+        "description": "A smart reminder tool that helps users manage medication schedules, dosages, and refills with customizable alerts and adherence tracking.",
+        "image": "../images/medication.png"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Environmental Monitoring & Climate Tech",
+    "subtitle": "Data and automation to tackle environmental challenges and sustainability",
+    "theme": "Environmental Monitoring & Climate Tech",
+    "themeText": "This theme focuses on using technology to measure, analyze, or respond to environmental challenges. Projects may involve data collection, visualization, or automation aimed at sustainability and environmental protection.",
+    "backgroundImage": "../images/c3.jpg",
+    "first": false,
+    "projects": [
+      {
+        "name": "Air Quality Monitor",
+        "description": "A sensor-based system that measures air pollution levels in real-time and displays data through an interactive dashboard with historical trends.",
+        "image": "../images/air-quality.webp"
+      },
+      {
+        "name": "Smart Garden Irrigation",
+        "description": "An automated watering system that uses soil moisture sensors and weather data to optimize water usage and promote sustainable gardening.",
+        "image": "../images/irrigation.jpeg"
+      },
+      {
+        "name": "Carbon Footprint Calculator",
+        "description": "A web app that calculates individual or household carbon emissions based on daily activities and suggests actionable ways to reduce impact.",
+        "image": "../images/carbon-footprint.jpeg"
+      },
+      {
+        "name": "Wildlife Tracking System",
+        "description": "A data collection platform that logs wildlife sightings, monitors biodiversity, and visualizes ecosystem health over time.",
+        "image": "../images/wildlife.webp"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Robotics & Embedded Systems",
+    "subtitle": "Connect hardware and software to build smart, responsive physical systems",
+    "theme": "Robotics & Embedded Systems",
+    "themeText": "This theme involves building solutions that connect physical hardware with software. Projects can include sensors, microcontrollers, and real-world data to create smart, responsive systems.",
+    "backgroundImage": "../images/c4.png",
+    "first": false,
+    "projects": [
+      {
+        "name": "Line-Following Robot",
+        "description": "An autonomous robot that uses infrared sensors to detect and follow a path, demonstrating basic navigation and control algorithms.",
+        "image": "../images/line-robot.jpg"
+      },
+      {
+        "name": "Smart Home Automation Hub",
+        "description": "A central control system using Arduino or Raspberry Pi to automate lights, temperature, and appliances through sensors and mobile integration.",
+        "image": "../images/smart-home.webp"
+      },
+      {
+        "name": "Obstacle Avoidance Robot",
+        "description": "A mobile robot equipped with ultrasonic sensors that detects obstacles in its path and navigates around them autonomously.",
+        "image": "../images/obstacle-robot.webp"
+      },
+      {
+        "name": "Weather Station",
+        "description": "An embedded system that collects temperature, humidity, and pressure data, displays it on an LCD, and logs information for analysis.",
+        "image": "../images/weather-station.jpg"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Digital Accessibility & Assistive Technology",
+    "subtitle": "Inclusive technology that empowers people with disabilities through innovation",
+    "theme": "Digital Accessibility & Assistive Technology",
+    "themeText": "This theme centers on creating technology that is inclusive and usable for everyone, especially individuals with disabilities. Projects may improve access to information, communication, or digital tools through thoughtful, human-centered design.",
+    "backgroundImage": "../images/c5.jpg",
+    "first": false,
+    "projects": [
+      {
+        "name": "Text-to-Speech Reader",
+        "description": "An accessible tool that converts written content into spoken words, helping visually impaired users consume digital text with customizable voices and speeds.",
+        "image": "../images/text-speech.jpeg"
+      },
+      {
+        "name": "Sign Language Translator",
+        "description": "A computer vision application that recognizes sign language gestures through a webcam and translates them into text or speech in real-time.",
+        "image": "../images/sign-language.jpeg"
+      },
+      {
+        "name": "Color Blindness Assistant",
+        "description": "A browser extension or app that adjusts color schemes and identifies colors in images to assist users with color vision deficiencies.",
+        "image": "../images/color-blind.webp"
+      },
+      {
+        "name": "Voice-Controlled Interface",
+        "description": "A hands-free navigation system that allows users with mobility impairments to control applications and devices using voice commands.",
+        "image": "../images/voice-control.jpg"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "title": "Cybersecurity",
+    "subtitle": "Protect systems, data, and users from digital threats with secure solutions",
+    "theme": "Cybersecurity",
+    "themeText": "This theme focuses on protecting systems, data, and users from digital threats. Projects can explore secure authentication, data privacy, threat detection, or awareness tools that promote safer digital practices.",
+    "backgroundImage": "../images/c6.avif",
+    "first": false,
+    "projects": [
+      {
+        "name": "Password Strength Analyzer",
+        "description": "A tool that evaluates password security, checks against common patterns and breached databases, and suggests improvements for stronger authentication.",
+        "image": "../images/password.jpg"
+      },
+      {
+        "name": "Phishing Detection System",
+        "description": "A browser extension that analyzes URLs and email content to identify potential phishing attempts and warns users before they click suspicious links.",
+        "image": "../images/phishing.jpg"
+      },
+      {
+        "name": "Encrypted File Sharing",
+        "description": "A secure platform for sharing sensitive files with end-to-end encryption, password protection, and automatic expiration for enhanced privacy.",
+        "image": "../images/encrypted.png"
+      },
+      {
+        "name": "'Network Traffic Monitor'",
+        "description": "A real-time dashboard that visualizes network activity, detects unusual patterns, and alerts users to potential security threats or unauthorized access.",
+        "image": "../images/network-monitor.webp"
+      }
+    ]
+  }
+]
