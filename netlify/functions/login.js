@@ -20,6 +20,7 @@ function generateToken() {
 
 export const handler = async (event) => {
   if (event.httpMethod !== "POST") {
+    console.log("❌ Method not allowed:", event.httpMethod);
     return {
       statusCode: 405,
       body: JSON.stringify({ error: "Method not allowed" })
@@ -29,7 +30,10 @@ export const handler = async (event) => {
   try {
     const { username, password } = JSON.parse(event.body);
 
+    console.log("📌 Login attempt:", { username });
+
     if (!username || !password) {
+      console.log("❌ Missing username or password");
       return {
         statusCode: 400,
         body: JSON.stringify({ error: "Username and password required" })
@@ -43,7 +47,10 @@ export const handler = async (event) => {
       .eq("team_id", username)
       .single();
 
+    console.log("🔍 Supabase result:", { user, error });
+
     if (error || !user) {
+      console.log("❌ User not found or query error");
       return {
         statusCode: 401,
         body: JSON.stringify({ error: "Invalid credentials" })
@@ -52,7 +59,13 @@ export const handler = async (event) => {
 
     const hashedPassword = hashPassword(password, user.Salt);
 
+    console.log("🔐 Hash check:", {
+      inputHash: hashedPassword,
+      storedHash: user.hashed_password
+    });
+
     if (hashedPassword !== user.hashed_password) {
+      console.log("❌ Password mismatch");
       return {
         statusCode: 401,
         body: JSON.stringify({ error: "Invalid credentials" })
@@ -61,6 +74,8 @@ export const handler = async (event) => {
 
     const token = generateToken();
     tokenStore.add(token, username, 24);
+
+    console.log("✅ Login successful:", { username, token });
 
     return {
       statusCode: 200,
@@ -72,7 +87,7 @@ export const handler = async (event) => {
     };
 
   } catch (err) {
-    console.error(err);
+    console.error("🔥 Error in login function:", err);
     return {
       statusCode: 500,
       body: JSON.stringify({ error: "Internal server error" })
