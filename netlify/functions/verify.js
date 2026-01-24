@@ -5,7 +5,7 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
-exports.handler = async (event, context) => {
+export const handler = async (event) => {
   if (event.httpMethod !== "POST") {
     return {
       statusCode: 405,
@@ -26,7 +26,7 @@ exports.handler = async (event, context) => {
 
     const { data, error } = await supabase
       .from("tokens")
-      .select("username, expires_at")
+      .select("team_id, expires_at")
       .eq("token", token)
       .single();
 
@@ -54,7 +54,7 @@ exports.handler = async (event, context) => {
       statusCode: 200,
       body: JSON.stringify({
         valid: true,
-        username: data.username
+        username: data.team_id
       })
     };
 

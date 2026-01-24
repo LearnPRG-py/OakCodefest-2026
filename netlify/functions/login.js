@@ -1,6 +1,5 @@
 import crypto from "crypto";
 import { createClient } from "@supabase/supabase-js";
-import tokenStore from "./tokenStore";
 
 const supabase = createClient(
   process.env.SUPABASE_URL,
@@ -20,7 +19,6 @@ function generateToken() {
 
 export const handler = async (event) => {
   if (event.httpMethod !== "POST") {
-    console.log("❌ Method not allowed:", event.httpMethod);
     return {
       statusCode: 405,
       body: JSON.stringify({ error: "Method not allowed" })
@@ -30,27 +28,20 @@ export const handler = async (event) => {
   try {
     const { username, password } = JSON.parse(event.body);
 
-    console.log("📌 Login attempt:", { username });
-
     if (!username || !password) {
-      console.log("❌ Missing username or password");
       return {
         statusCode: 400,
         body: JSON.stringify({ error: "Username and password required" })
       };
     }
 
-    // Fetch user from Supabase
     const { data: user, error } = await supabase
       .from("teams")
       .select("team_id, hashed_password, Salt")
       .eq("team_id", username)
       .single();
 
-    console.log("🔍 Supabase result:", { user, error });
-
     if (error || !user) {
-      console.log("❌ User not found or query error");
       return {
         statusCode: 401,
         body: JSON.stringify({ error: "Invalid credentials" })
@@ -59,13 +50,7 @@ export const handler = async (event) => {
 
     const hashedPassword = hashPassword(password, user.Salt);
 
-    console.log("🔐 Hash check:", {
-      inputHash: hashedPassword,
-      storedHash: user.hashed_password
-    });
-
     if (hashedPassword !== user.hashed_password) {
-      console.log("❌ Password mismatch");
       return {
         statusCode: 401,
         body: JSON.stringify({ error: "Invalid credentials" })
@@ -73,9 +58,19 @@ export const handler = async (event) => {
     }
 
     const token = generateToken();
-    tokenStore.add(token, username, 24);
+    const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
 
-    console.log("✅ Login successful:", { username, token });
+    const { error: tokenError } = await supabase
+      .from("tokens")
+      .insert([{ token, team_id: username, expires_at: expiresAt }]);
+
+    if (tokenError) {
+      console.error("Token insert error:", tokenError);
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: "Server error" })
+      };
+    }
 
     return {
       statusCode: 200,
@@ -87,7 +82,7 @@ export const handler = async (event) => {
     };
 
   } catch (err) {
-    console.error("🔥 Error in login function:", err);
+    console.error(err);
     return {
       statusCode: 500,
       body: JSON.stringify({ error: "Internal server error" })
