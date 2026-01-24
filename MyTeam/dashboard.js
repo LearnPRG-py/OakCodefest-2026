@@ -8,7 +8,6 @@ function toggleResolve(index) {
   renderFeedback(feedbackData);
 }
 
-
 function startCountdown() {
   const el = document.getElementById("countdown");
 
@@ -49,7 +48,6 @@ async function loadDashboardData() {
 
   return res.json();
 }
-
 
 function renderTeam(t) {
   document.getElementById("team-info").innerHTML = `
@@ -132,8 +130,6 @@ function renderLeaderboard(rows) {
   `).join("");
 }
 
-
-
 function renderFeedback(rows) {
   const c = document.getElementById("feedback-list");
 
@@ -148,13 +144,13 @@ function renderFeedback(rows) {
 
     let priorityClass = "";
 
-if (priority === 1) priorityClass = "priority-red";
-else if (priority === 2) priorityClass = "priority-yellow";
-else if (priority === 3) priorityClass = "priority-blue";
-else {
-  console.warn("Invalid priority value:", f.Priority);
-  priorityClass = "priority-red";
-}
+    if (priority === 1) priorityClass = "priority-red";
+    else if (priority === 2) priorityClass = "priority-yellow";
+    else if (priority === 3) priorityClass = "priority-blue";
+    else {
+      console.warn("Invalid priority value:", f.Priority);
+      priorityClass = "priority-red";
+    }
 
     const showResolve = priority !== 3;
 
@@ -177,7 +173,29 @@ else {
 
 
 document.addEventListener("DOMContentLoaded", async () => {
+  const token = localStorage.getItem('authToken');
+
+  if (!token) {
+    window.location.href = 'login.html';
+    return;
+  }
+
   try {
+    const response = await fetch('/.netlify/functions/verify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok || !data.valid) {
+      localStorage.removeItem('authToken');
+      window.location.href = 'login.html';
+      return;
+    }
+
+    // Token valid → load dashboard
     startCountdown();
     renderUpcoming();
 
@@ -194,31 +212,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   } catch (err) {
     console.error(err);
-    alert("Failed to load dashboard data");
+    window.location.href = 'login.html';
   }
-});
-
-window.addEventListener('DOMContentLoaded', async () => {
-    const token = localStorage.getItem('authToken');
-    if (!token) {
-        window.location.href = 'login.html';
-        return;
-    }
-    try {
-        const response = await fetch('/.netlify/functions/verify', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ token })
-        });
-        
-        const data = await response.json();
-        if (!response.ok || !data.valid) {
-            window.location.href = 'login.html';
-        }
-    } catch (error) {
-        console.log('Token verification failed:', error);
-        window.location.href = 'login.html';
-    }
 });

@@ -1,35 +1,28 @@
-const crypto = require('crypto');
-const tokenStore = require('./tokenStore');
+import crypto from "crypto";
+import { createClient } from "@supabase/supabase-js";
+import tokenStore from "./tokenStore";
 
-// In a real app, store these in a database
-// For demo purposes, we're using an in-memory object
-// Password is 'password123' hashed with salt
-const USERS = {
-  'testuser': {
-    passwordHash: '847d001c90d458701bcdb402bd60f5e6d4179eca6930a996de756d1b1c67690a',
-    salt: 'randomsalt123'
-  }
-};
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY
+);
 
 function hashPassword(password, salt) {
   return crypto
-    .createHash('sha256')
-    .update(password + salt)
-    .digest('hex');
+    .createHash("sha256")
+    .update(salt + password)
+    .digest("hex");
 }
 
 function generateToken() {
-  return crypto.randomBytes(32).toString('hex');
+  return crypto.randomBytes(32).toString("hex");
 }
 
-exports.handler = async (event, context) => {
-  if (event.httpMethod !== 'POST') {
+export const handler = async (event) => {
+  if (event.httpMethod !== "POST") {
     return {
       statusCode: 405,
-      headers: {
-        'Allow': 'POST'
-      },
-      body: JSON.stringify({ error: 'Method not allowed. Use POST.' })
+      body: JSON.stringify({ error: "Method not allowed" })
     };
   }
 
@@ -39,25 +32,33 @@ exports.handler = async (event, context) => {
     if (!username || !password) {
       return {
         statusCode: 400,
-        body: JSON.stringify({ error: 'Username and password required' })
+        body: JSON.stringify({ error: "Username and password required" })
       };
     }
 
-    const user = USERS[username];
-    if (!user) {
+    // Fetch user from Supabase
+    const { data: user, error } = await supabase
+      .from("users")
+      .select("username, password_hash, salt")
+      .eq("username", username)
+      .single();
+
+    if (error || !user) {
       return {
         statusCode: 401,
-        body: JSON.stringify({ error: 'Invalid credentials' })
+        body: JSON.stringify({ error: "Invalid credentials" })
       };
     }
 
     const hashedPassword = hashPassword(password, user.salt);
-    if (hashedPassword !== user.passwordHash) {
+
+    if (hashedPassword !== user.password_hash) {
       return {
         statusCode: 401,
-        body: JSON.stringify({ error: 'Invalid credentials' })
+        body: JSON.stringify({ error: "Invalid credentials" })
       };
     }
+
     const token = generateToken();
     tokenStore.add(token, username, 24);
 
@@ -65,15 +66,16 @@ exports.handler = async (event, context) => {
       statusCode: 200,
       body: JSON.stringify({
         success: true,
-        token: token,
-        username: username
+        token,
+        username
       })
     };
 
-  } catch (error) {
+  } catch (err) {
+    console.error(err);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'Internal server error' })
+      body: JSON.stringify({ error: "Internal server error" })
     };
   }
 };
