@@ -195,21 +195,6 @@ body {
 }
 .u-time { color: var(--accent-color); }
 
-.feedback-card.low {
-  background: rgba(40, 200, 120, 0.06);
-  border-color: rgba(40, 200, 120, 0.2);
-}
-
-.feedback-card.medium {
-  background: rgba(255, 200, 50, 0.06);
-  border-color: rgba(255, 200, 50, 0.2);
-}
-
-.feedback-card.high {
-  background: rgba(242, 70, 79, 0.08);
-  border-color: rgba(242, 70, 79, 0.25);
-}
-
 .resolve-btn {
   margin-top:8px;
   background:black;
@@ -232,18 +217,6 @@ body {
 
 .feedback-full {
   align-self: start;
-}
-
-.feedback-card.low {
-  color: rgb(40, 200, 120);
-}
-
-.feedback-card.medium {
-  color: rgb(255, 200, 50);
-}
-
-.feedback-card.high {
-  color: rgb(242, 70, 79);
 }
 
 .feedback-card p,
@@ -269,6 +242,148 @@ body {
   color: rgb(53, 208, 227);
 }
 
-.feedback-card.done {
-  opacity: 0.6;
+.btn {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+}
+
+.btn.primary {
+  background: var(--accent-color);
+  color: black;
+}
+
+.btn.primary:hover {
+  background: rgb(255, 240, 100);
+  transform: translateY(-1px);
+}
+
+.btn.secondary {
+  background: rgba(255,255,255,0.1);
+  color: var(--text-color);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.btn.secondary:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form input,
+.form textarea {
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  padding: 12px;
+  color: var(--text-color);
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.form textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.form input:focus,
+.form textarea:focus {
+  outline: none;
+  border-color: var(--accent-color);
+}
+
+.project-block {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.project-field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.project-field label {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--muted-text);
+}
+
+.info-desc {
+  color: var(--text-color);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.empty-state button {
+  background: var(--accent-color);
+  color: black;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.empty-state button:hover {
+  background: rgb(255, 240, 100);
+  transform: translateY(-1px);
+}
+
+.project-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.project-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.project-row .btn {
+  align-self: center;
+  white-space: nowrap;
+  padding: 8px 14px;
+  font-size: 13px;
+}
+
+.project-row {
+  padding-top: 6px;
+}
+
+.github {
+  min-height: unset;
+}
+
+.github-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.btn.full {
+  width: 100%;
+}
+
+.github-form {
+  width: 100%;
+}
+
+.form {
+  margin-top: 12px;
 }

@@ -77,29 +77,26 @@ function renderTeam(t) {
 function renderProject(team) {
   const el = document.getElementById("project-info");
 
-  const hasTitle =
-    team.project_title && team.project_title.trim() !== "";
-  const hasDesc =
-    team.project_description && team.project_description.trim() !== "";
-
-  if (!hasTitle || !hasDesc) {
-    el.innerHTML = `
-      <div class="empty-state">
-        <button onclick="showProjectForm()">
-          Add project details
-        </button>
-      </div>
-    `;
-    return;
-  }
-
   el.innerHTML = `
-    <div class="info-block">
-      <div class="info-title">${team.project_title}</div>
-      <p class="info-desc">${team.project_description}</p>
+    <div class="project-block">
+
+      <div class="project-row">
+        <div class="project-text">
+          <div class="info-title">${team.project_title || "Not added yet"}</div>
+        </div>
+        <button class="btn secondary" onclick="editProjectTitle()">Edit</button>
+      </div>
+
+      <div class="project-row">
+        <div class="project-text">
+          <p class="info-desc">${team.project_description || "No description yet"}</p>
+        </div>
+        <button class="btn secondary" onclick="editProjectDesc()">Edit</button>
+      </div>
     </div>
   `;
 }
+
 
 
 function renderGitHub(team) {
@@ -107,39 +104,78 @@ function renderGitHub(team) {
 
   if (!team.repo_url || team.repo_url.trim() === "") {
     el.innerHTML = `
-      <div class="empty-state">
-        <button onclick="showGitHubForm()">Add GitHub link</button>
+      <div class="form github-form">
+        <input id="repo" placeholder="GitHub repository URL" />
+        
+        <button class="btn primary full" onclick="saveGitHub()">Save</button>
+        <button class="btn secondary full" onclick="location.reload()">Cancel</button>
       </div>
     `;
+
+
+
     return;
   }
+
   let repo_url = team.repo_url;
-  if (!repo_url.includes("https://")) {
-    repo_url = "https://" + repo_url;
-  }
+  if (!repo_url.startsWith("https://")) repo_url = "https://" + repo_url;
+
   el.innerHTML = `
-    <a class="github-btn" href="${repo_url}" target="_blank">
-      Open Repository
-    </a>
+    <div class="github-centered">
+      <a class="github-btn" href="${repo_url}" target="_blank">
+        Open Repository →
+      </a>
+    </div>
   `;
 }
+
 
 function renderUpcoming() {
   const list = document.getElementById("event-timeline");
 
-  const items = [
-    { label: "Next Check-in", time: "11:00 AM" },
-    { label: "Lunch Break", time: "1:00 PM" },
-    { label: "Mid-Review", time: "3:30 PM" }
-  ];
+  const schedule = [
+    ["2026-02-07T07:45:00", "Participant Registrations"],
+    ["2026-02-07T08:30:00", "Opening Ceremony"],
+    ["2026-02-07T09:15:00", "Coding Starts"],
+    ["2026-02-07T12:00:00", "Lunch"],
+    ["2026-02-07T13:00:00", "First Audit"],
+    ["2026-02-07T18:00:00", "Second Audit"],
+    ["2026-02-07T20:00:00", "Dinner"],
 
-  list.innerHTML = items.map(i => `
+    ["2026-02-08T00:00:00", "Midnight Hangout"],
+    ["2026-02-08T02:00:00", "Third Audit"],
+    ["2026-02-08T06:15:00", "Breakfast"],
+    ["2026-02-08T07:00:00", "Fourth Audit"],
+    ["2026-02-08T09:15:00", "Coding Ends"],
+    ["2026-02-08T09:30:00", "Prep Presentations"],
+    ["2026-02-08T20:00:00", "Presentations"],
+    ["2026-02-08T11:00:00", "Closing Ceremony"]
+  ].map(([time, label]) => ({
+    time: new Date(time),
+    label
+  }));
+
+  const now = new Date();
+
+  const upcoming = schedule
+    .filter(e => e.time > now)
+    .slice(0, 6);
+
+  if (!upcoming.length) {
+    list.innerHTML = `<div class="empty-state">Event finished</div>`;
+    return;
+  }
+
+  list.innerHTML = upcoming.map(e => `
     <li class="upcoming-item">
-      <span class="u-label">${i.label}</span>
-      <span class="u-time">${i.time}</span>
+      <span class="u-label">${e.label}</span>
+      <span class="u-time">
+        ${e.time.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true })}
+      </span>
     </li>
   `).join("");
 }
+
 
 function renderLeaderboard(rows) {
   const body = document.getElementById("leaderboard-body");
@@ -263,6 +299,61 @@ async function saveGitHub() {
   location.reload();
 }
 
+function editProjectTitle() {
+  const el = document.getElementById("project-info");
+  const currentTitle = feedbackData.team?.project_title || '';
+  
+  el.innerHTML = `
+    <div class="form">
+      <input id="ptitle" placeholder="Project title" value="${currentTitle}" />
+      <button class="btn primary" onclick="saveProjectTitle()">Save</button>
+      <button class="btn secondary" onclick="location.reload()">Cancel</button>
+    </div>
+  `;
+}
+
+function editProjectDesc() {
+  const el = document.getElementById("project-info");
+  const currentDesc = feedbackData.team?.project_description || '';
+  
+  el.innerHTML = `
+    <div class="form">
+      <textarea id="pdesc" placeholder="Project description">${currentDesc}</textarea>
+      <button class="btn primary" onclick="saveProjectDesc()">Save</button>
+      <button class="btn secondary" onclick="location.reload()">Cancel</button>
+    </div>
+  `;
+}
+
+async function saveProjectTitle() {
+  const project_title = document.getElementById("ptitle").value.trim();
+  
+  await fetch("/.netlify/functions/updateTeamProject", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      team_id: TEAM_ID,
+      project_title
+    })
+  });
+  
+  location.reload();
+}
+
+async function saveProjectDesc() {
+  const project_description = document.getElementById("pdesc").value.trim();
+  
+  await fetch("/.netlify/functions/updateTeamProject", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      team_id: TEAM_ID,
+      project_description
+    })
+  });
+  
+  location.reload();
+}
 
 document.addEventListener("DOMContentLoaded", async () => {
   const token = localStorage.getItem('authToken');
@@ -291,17 +382,19 @@ document.addEventListener("DOMContentLoaded", async () => {
     startCountdown();
     renderUpcoming();
 
-    const { team, feedback } = await loadDashboardData();
+    const { team, feedback, leaderboard } = await loadDashboardData();
 
     feedbackData = feedback.map(f => ({
       ...f,
       resolved: f.resolved === true
     }));
+    setInterval(renderUpcoming, 60_000);
 
     renderTeam(team);
     renderProject(team);
     renderGitHub(team);
     renderFeedback(feedbackData);
+    renderLeaderboard(leaderboard);
 
   } catch (err) {
     console.error(err);
