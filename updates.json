@@ -1,10 +1,10 @@
 [ 
   {
-    "title": "Registrations Closed! See you at Codefest 2026",
-    "description": "Registrations are now closed! We can't wait to see you all at CodeFest 2026 next weekend! Get ready for an unforgettable experience filled with coding, creativity, and collaboration!",
+    "title": "CodeFest 2026 registrations have been EXTENDED!!!",
+    "description": "On popular demand, we have extended the registration deadline to February 3rd, 2026. Hurry up and register now to secure your spot!",
     "date": "02-02-2026",
     "image": "images/updates5.png",
-    "importance": 1
+    "importance": 2
   },
   {
     "title": "CodeFest bootcamp: STARTING NOW!!!",
@@ -33,6 +33,5 @@
     "date": "12-17-2025",
     "image": "images/CODEFEST26.png",
     "importance": 1
-  }
-  
+  }  
 ]
