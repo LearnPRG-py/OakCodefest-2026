@@ -29,7 +29,7 @@ function startCountdown() {
     const diff = EVENT_END - new Date();
 
     if (diff <= 0) {
-      el.textContent = "EVENT LIVE";
+      el.textContent = "CODING TIME IS UP!!!";
       return;
     }
 
