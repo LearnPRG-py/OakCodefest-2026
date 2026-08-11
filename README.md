@@ -1,5 +1,3 @@
-# OakCodefest-2026
-This is the repository for oakridge codefest 2026 website, An overnight hackathon in oakridge international school bengaluru! We are cooking an amazing event - stay tuned!
+# Oakridge Codefest 2027 (v10)
 
-# OakCodefest-2027
-Transfering ownership to pratyush for codefest 2027!
+This is the repository for oakridge codefest 2027 website, An overnight hackathon in oakridge international school bengaluru! We are cooking an amazing event - stay tuned!
