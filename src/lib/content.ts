@@ -34,7 +34,7 @@ export const navItems: NavItem[] = [
   { label: "Themes", href: "/coming-soon" },
   { label: "Event Details", href: "/coming-soon" },
   { label: "Resources", href: "/coming-soon" },
-  { label: "Register", href: "/coming-soon" },
+  { label: "Register", href: "/register" },
   { label: "Dashboard", href: "/coming-soon" },
 ];
 

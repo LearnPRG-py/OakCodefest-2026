@@ -8,9 +8,10 @@ import "../styles/global.css";
 interface Props {
   title: string;
   description: string;
+  showFooter?: boolean;
 }
 
-const { title, description } = Astro.props;
+const { title, description, showFooter = true } = Astro.props;
 ---
 
 <!doctype html>
@@ -97,9 +98,7 @@ const { title, description } = Astro.props;
       <slot />
     </main>
 
-    <div class="relative z-10">
-      <Footer />
-    </div>
+    {showFooter && <div class="relative z-10"><Footer /></div>}
 
     <script src="../scripts/motion.ts"></script>
     <script src="../scripts/cursor.ts"></script>
