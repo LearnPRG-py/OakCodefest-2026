@@ -11,12 +11,11 @@ gsap.registerPlugin(ScrollTrigger);
 
 function capableOfDepthEngine(): boolean {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return false;
-  if (!window.WebGLRenderingContext) return false;
-  const nav = navigator as Navigator & { deviceMemory?: number; connection?: { saveData?: boolean } };
-  if (nav.deviceMemory !== undefined && nav.deviceMemory < 4) return false;
-  if (navigator.hardwareConcurrency !== undefined && navigator.hardwareConcurrency < 4) return false;
+  const nav = navigator as Navigator & { connection?: { saveData?: boolean } };
   if (nav.connection?.saveData) return false;
-  return true;
+
+  const canvas = document.createElement("canvas");
+  return Boolean(canvas.getContext("webgl") || canvas.getContext("experimental-webgl"));
 }
 
 let oceanShader: OceanShader | null = null;
@@ -60,9 +59,16 @@ function init() {
   }
   root.classList.remove("hidden");
 
-  oceanShader = new OceanShader(oceanCanvas, { cursorEnabled: true, intensity: 0.5 });
-
-  depthScene = new DepthScene(sceneCanvas);
+  try {
+    oceanShader = new OceanShader(oceanCanvas, { cursorEnabled: true, intensity: 0.5 });
+    depthScene = new DepthScene(sceneCanvas);
+  } catch (error) {
+    console.error("Unable to initialize the WebGL depth effects.", error);
+    teardown();
+    root.classList.add("hidden");
+    gsap.set("#home-hero [data-reveal-hero]", { opacity: 1, y: 0 });
+    return;
+  }
   const { scene, camera } = depthScene;
   const REST_FOG = { near: 4, far: 15 };
   // Shark scale ceiling

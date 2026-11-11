@@ -30,6 +30,12 @@ const galleryImages = Array.from({ length: 15 }, (_, index) => index + 1);
 
   <section id="home-hero" class="relative isolate flex min-h-dvh flex-col items-center justify-center overflow-hidden px-4 pt-32 pb-20 text-center sm:px-6">
     <div class="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[80vmin] w-[80vmin] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/10 blur-3xl" aria-hidden="true"></div>
+    <span
+      class="mb-8 flex h-20 w-20 items-center justify-center overflow-hidden rounded-full bg-black sm:h-24 sm:w-24"
+      data-reveal-hero
+    >
+      <img src="/brand/codefest-hero.png" alt="Oakridge Codefest" class="h-full w-full translate-x-px translate-y-1 object-contain" />
+    </span>
     <p class="hero-date-pill mb-6 inline-flex font-mono text-xs uppercase tracking-[0.32em] text-foreground sm:text-sm" data-reveal-hero>
       <span>{site.eventDateLabel} · V10</span>
     </p>

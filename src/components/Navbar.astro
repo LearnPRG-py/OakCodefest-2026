@@ -22,20 +22,16 @@ const isActive = (href: string) => {
       <a
         href="/"
         id="nav-logo"
-        class="group flex shrink-0 items-center gap-2.5 rounded-full font-display text-lg font-semibold tracking-tight text-foreground"
+        class="group flex shrink-0 items-center rounded-full font-display text-lg font-semibold tracking-tight text-foreground"
       >
-        <span id="nav-logo-icon" class="relative flex h-9 w-9 shrink-0 items-center justify-center" aria-hidden="true">
-          <span class="absolute -inset-1.5 rounded-full bg-primary/25 blur-md motion-safe:animate-pulse-glow"></span>
-          <span class="relative h-full w-full overflow-hidden rounded-full border border-primary/40 bg-surface shadow-glow">
-            <img src="/brand/ocf10logo.png" alt="" class="h-full w-full object-cover" />
-          </span>
+        <span id="nav-logo-icon" class="relative flex h-9 w-[9.5rem] shrink-0 items-center justify-center">
+          <img
+            src="/brand/oakridge-international-school-logo.png"
+            alt="Oakridge International School"
+            class="h-full w-full object-contain opacity-90 brightness-0 invert"
+          />
         </span>
-        <span id="nav-logo-text" class="flex flex-col whitespace-nowrap leading-none">
-          <span>OAK CODEFEST 2027</span>
-          <span class="font-mono text-[0.55rem] font-normal lowercase tracking-[0.3em] text-muted-foreground"
-            >{site.edition}</span
-          >
-        </span>
+        <span id="nav-logo-text" class="sr-only">{site.name}</span>
       </a>
 
       <div id="nav-collapsible" class="flex shrink-0 items-center gap-1">
