@@ -19,6 +19,8 @@ export const site = {
   mapsHref: "https://maps.app.goo.gl/DZmkLwyBAA6mcQ5f6",
   phoneTeacher: "+91 97402 55229",
   phoneCoreTeam: "+91 99027 94849",
+  internalRegistrationHref:
+    "https://forms.cloud.microsoft/pages/responsepage.aspx?id=e3DJf4-dak-Fa664SP7xA3I-l0X_DodHgoJH4tTPebxUNjBYUEZHQUZFNDY0MTlHU0JKQkoxR0ozVi4u&route=shorturl",
 } as const;
 
 export type NavItem = {

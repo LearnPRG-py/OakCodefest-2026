@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/Button.astro";
 import { site } from "../lib/content";
 ---
 
@@ -15,7 +16,7 @@ import { site } from "../lib/content";
         <p class="font-mono text-xs uppercase tracking-[0.24em] text-primary">Oakridge Codefest 2027 · {site.eventDateLabel}</p>
         <h1 class="mt-6 font-display text-6xl font-bold leading-[0.95] tracking-tight sm:text-7xl lg:text-8xl">Register<br />your team.</h1>
         <div class="mt-9 inline-flex rounded-full border border-primary/30 bg-primary/10 px-5 py-3 font-mono text-sm text-primary">
-          Registration form coming soon
+          Internal early-bird registration is open
         </div>
       </div>
 
@@ -35,7 +36,8 @@ import { site } from "../lib/content";
             <dd class="mt-2 text-lg">₹1,500 per member <span class="font-mono text-xs uppercase tracking-widest text-primary">(early bird; price to hike by 20% after Nov 23rd)</span></dd>
           </div>
         </dl>
-        <p class="mt-6 text-sm text-muted-foreground">Registration form link coming soon.</p>
+        <Button href={site.internalRegistrationHref} external class="mt-6">Open internal registration</Button>
+        <p class="mt-4 text-sm text-muted-foreground">This early-bird form is for Oakridge internal participants.</p>
         <a href={`mailto:${site.email}`} class="mt-4 inline-block border-b border-primary/50 pb-1 font-mono text-sm text-primary transition hover:text-foreground">Questions? {site.email}</a>
       </div>
     </div>
